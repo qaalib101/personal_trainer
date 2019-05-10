@@ -1,0 +1,28 @@
+[
+    {"model" : "trainer.customuser", "pk" : 1 , "fields" :
+      { "username" : "alice",
+        "first_name" : "alice",
+        "last_name" : "last",
+        "email" : "a@a.com",
+        "password" : "qwertyuiop"
+      }
+    },
+
+    {"model" : "trainer.customuser", "pk" : 2 , "fields" :
+      { "username" : "bob",
+        "first_name" : "bob",
+        "last_name" : "last",
+        "email" : "b@b.com",
+        "password" : "qwertyuiop"
+      }
+    },
+
+    {"model" : "trainer.customuser", "pk" : 3 , "fields" :
+      { "username" : "me",
+        "first_name" : "me",
+        "last_name" : "mine",
+        "email" : "email@mine.com",
+        "password" : "qwertyuiop"
+      }
+    }
+]

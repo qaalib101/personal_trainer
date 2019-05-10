@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal Trainer</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+    <!--<link rel="stylesheet" href="">-->
+</head>
+<div class="container">
+    <div class="jumbotron">
+        <h1><a href="{% url 'trainer:homepage' %}">Trainer</a></h1>
+        {% if request.user.is_authenticated %}
+            <span id='welcome_user_msg'>You are logged in, <a href="{% url 'trainer:user_profile' user_pk=request.user.pk %}">{{ request.user.username }}</a>.  <a href="{% url 'trainer:logout' %}">Logout</a></span>
+        {% else %}
+            <span id='login_or_sign_up'><a href="{% url 'trainer:login' %}?next={{ request.path }}">Login or sign up</a></span>
+        {% endif %}
+
+    </div>
+</div>
+<body>
+{% if message %}
+    <div class="alert alert-warning">
+        <p>
+          {{ message }}
+        </p>
+    </div>
+{% endif %}
+
+<div class="container">
+    {% block content %}
+
+    {% endblock %}
+    <div class="well">
+       <P>A web app written in Django</P>
+    </div>
+</div>
+</body>
+
+</html>
+

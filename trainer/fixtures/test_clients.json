@@ -1,0 +1,14 @@
+[
+    {"model" : "trainer.client", "pk" : 1 , "fields" :
+      { "birthday" : "1996-10-12",
+        "user" : "1",
+        "bmi" : "23.0"
+      }
+    },
+    {"model" : "trainer.client", "pk" : 2 , "fields" :
+      { "birthday" : "1997-12-23",
+        "user" : "2",
+        "bmi" : "20.0"
+      }
+    }
+]

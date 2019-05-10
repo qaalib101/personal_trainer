@@ -1,0 +1,24 @@
+{% extends 'trainer/base.html' %}
+{% block content %}
+    <div class="well well-lg">
+        <h1>Trainer Profile page</h1>
+        <hr>
+        <h2>New Clients</h2>
+    {% for client in clients %}
+        <a href="{% url 'trainer:user_profile' user_pk=client.user.pk %}">{{ client.user.username }}</a>
+        <p>Bmi: {{ client.bmi }}</p>
+        <p>Member since: {{ client.user.date_joined }}</p>
+    {% empty %}
+        <p>No new clients</p>
+    {% endfor %}
+        <h2>Notifications</h2>
+    {% for n in notifications %}
+        <p>Date: {{ n.date }}</p>
+        <a href={{ n.link }}>{{ n.link }}</a>
+        <p>Message: {{ n.message }}</p>
+        <hr>
+    {% empty %}
+        <p>No new notifications</p>
+    {% endfor %}
+    </div>
+{% endblock %}

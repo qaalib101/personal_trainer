@@ -1,0 +1,11 @@
+{% extends 'trainer/base.html'%}
+{% block content %}
+    <div class="well well-lg">
+        <h1>Set up client</h1>
+        <hr>
+        <form action="{% url 'trainer:edit_profile' %}" method="POST">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Set up</button>
+        </form>
+    </div>
+{% endblock%}
