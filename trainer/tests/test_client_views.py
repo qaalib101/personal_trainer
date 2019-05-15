@@ -4,8 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.conf import settings
 from trainer.forms import UserRegistrationForm
 from trainer.models import Progress, Client, CustomUser as User
-
-from django.http import Http404
+from PIL import Image
+import os
 
 
 class TestClientViews(TestCase):
@@ -27,9 +27,9 @@ class TestSetupClient(TestCase):
     fixtures = ['test_users', 'test_clients']
 
     def test_new_client(self):
-        user = User.objects.get(pk=3)
+        user = User.objects.get(pk=2)
         self.client.force_login(user)
-        response = self.client.post(reverse('trainer:edit_profile'), {'birthday':'1998-01-05', 'bmi':24.5}, follow=True)
+        response = self.client.post(reverse('trainer:edit_profile'), {'birthday':'1998-01-05', 'weight': 240.9}, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/profile.html')
 
@@ -43,7 +43,7 @@ class TestSetupClient(TestCase):
         self.assertContains(response, 'Form is not valid')
 
     def test_user_profile_page(self):
-        user = User.objects.get(pk=1)
+        user = User.objects.get(pk=2)
         self.client.force_login(user)
         response = self.client.get(reverse('trainer:user_profile', kwargs={'user_pk': user.pk}))
         self.assertEqual(response.status_code, 200)
@@ -66,3 +66,12 @@ class TestSetupClient(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/setup_client.html')
         self.assertContains(response, 'Set up client')
+
+    def test_set_up_client(self):
+        user = User.objects.get(pk=3)
+        self.client.force_login(user)
+        with Image.open('trainer/media/test/download.jpg') as img:
+            response = self.client.post(reverse('trainer:edit_profile'),
+                                        {'birthday': '1998-01-05', 'photo': img, 'weight': 240.5},
+                                        follow=True)
+            self.assertEqual(response.status_code, 200)

@@ -1,10 +1,12 @@
 {% extends 'trainer/base.html'%}
 {% block content %}
+    {% load crispy_forms_tags %}
     <div class="well well-lg">
         <h1>Set up client</h1>
         <hr>
-        <form action="{% url 'trainer:edit_profile' %}" method="POST">{% csrf_token %}
-            {{ form.as_p }}
+        <form action="{% url 'trainer:edit_profile' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
             <button type="submit">Set up</button>
         </form>
     </div>

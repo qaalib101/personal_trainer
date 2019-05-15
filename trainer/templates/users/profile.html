@@ -1,6 +1,7 @@
 {% extends 'trainer/base.html' %}
 {% block content %}
     {% load static %}
+    {% load crispy_forms_tags %}
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
         <li><a data-toggle="tab" href="#regimen">Regimen</a></li>
@@ -11,7 +12,7 @@
             <div id="home" class="tab-pane fade in active">
             <h1>{{ client.user.username }}'s profile page</h1>
         {% if client.photo %}
-            <img class="img-circle" src="{{ MEDIA_URL }}{{ client.photo.url }}" style="width:100px;height:100px;">
+            <img class="img-circle" src="{{ client.photo.url }}" style="width:100px;height:100px;">
         {% else %}
             <p>No image</p>
         {% endif %}
@@ -25,7 +26,7 @@
         <P>Submit the progress you made this week</P>
         <form id="progress_form" action="{% url 'trainer:submit_progress' %}" method="POST">
             {% csrf_token %}
-            {{ form.as_table }}
+            {{ form|crispy }}
         <button type="submit" class="btn btn-primary">Submit</button>
         </form>
 
@@ -33,7 +34,9 @@
             </div>
             <div id="progress" class="tab-pane fade">
                 <h2>Your progress so far</h2>
-                <p id="progress_graph"></p>
+                {% if request.user == client.user or request.user.is_trainer%}
+                    <p id="progress_graph"></p>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -59,16 +62,16 @@
               let date =  new Date(progress[i].date * 1000);
               let weight = parseFloat(String(progress[i].weight));
               data.addRows([[date, {v:weight, f: weight.toFixed(1)}]]);
-          }
-        var options = {
-          title: 'Your Progress',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
+              }
+              var options = {
+                  title: 'Your Progress',
+                  curveType: 'function',
+                  legend: { position: 'bottom' }
+              };
 
-        var chart = new google.visualization.LineChart(document.getElementById('progress_graph'));
+              var chart = new google.visualization.LineChart(document.getElementById('progress_graph'));
 
-        chart.draw(data, options);
+              chart.draw(data, options);
           }
           else{
               var message = document.getElementById("progress_graph");

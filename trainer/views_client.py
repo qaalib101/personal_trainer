@@ -18,9 +18,9 @@ def setup_client(request):
     clientForm = NewClientForm()
     try:
         instance = Client.objects.get(user=user)
-        clientForm = NewClientForm(request.POST, instance=instance)
+        clientForm = NewClientForm(request.POST, request.FILES, instance=instance)
     except Client.DoesNotExist:
-        clientForm = NewClientForm(request.POST)
+        clientForm = NewClientForm(request.POST, request.FILES)
     if request.method == 'POST':
         if clientForm.is_valid():
             form = clientForm.save(commit=False)

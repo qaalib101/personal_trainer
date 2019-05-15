@@ -40,9 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'trainer'
+    'trainer',
+    'crispy_forms'
 ]
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -79,7 +81,7 @@ WSGI_APPLICATION = 'personal_trainer.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': '''{
+    'default':'''{
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'trainer',
         'USER': 'qaalib',
@@ -139,7 +141,8 @@ LOGOUT_REDIRECT_URL = 'trainer:homepage'
 
 AUTH_USER_MODEL = 'trainer.CustomUser'
 
-MEDIA_ROOT = os.path.join(BASE_DIR)
-MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'trainer\media')
+MEDIA_URL = '/trainer/media/'
+
 
 COMPRESS_OFFLINE = os.environ.get('COMPRESS_OFFLINE', True)

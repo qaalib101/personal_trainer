@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User, AbstractUser, BaseUserManager
+from PIL import Image
 # Create your models here.
 
 
