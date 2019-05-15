@@ -28,7 +28,7 @@ SECRET_KEY = '%kk48-be6li46k6bkpleppy0ri!9zujq9!w18jgtwn8+^b%2%g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['capstonefinal.herokuapp.com', '127.0.0.1:8000']
 
 
 # Application definition
