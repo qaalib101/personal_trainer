@@ -1,4 +1,4 @@
-This is a peronal trainer app. New users can sign up as clients and a will be given an option to set up a regimen.
+This is a personal trainer app. New users can sign up as clients and a will be given an option to set up a regimen.
 Progress is shown to user as weight loss.
 Clients can submit progress at any time and follow the workouts provided in their profile.
 
