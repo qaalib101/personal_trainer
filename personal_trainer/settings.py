@@ -90,6 +90,7 @@ DATABASES = {
         'PORT': '5432'
     }'''
 }
+# database configuration for data.heroku.com, comment out these lines and comment in the local database
 db_from_env = dj_database_url.config(default=config('DATABASE_URL'), conn_max_age=600, ssl_require=True)
 DATABASES['default'] = db_from_env
 
