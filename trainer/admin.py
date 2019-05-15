@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Regimen, Client
+from .models import Progress, Client
 
 # Register your models here.
 
-admin.site.register(Regimen)
+admin.site.register(Progress)
 admin.site.register(Client)

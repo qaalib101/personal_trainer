@@ -3,7 +3,7 @@ from django.test import TestCase, Client
 from django.contrib.auth import authenticate, login, logout
 from django.conf import settings
 from trainer.forms import UserRegistrationForm
-from trainer.models import Regimen, Client, CustomUser as User
+from trainer.models import Progress, Client, CustomUser as User
 
 from django.http import Http404
 
@@ -60,7 +60,7 @@ class TestSetupClient(TestCase):
         self.assertContains(response, f"{expected.username}'s profile page")
 
     def test_user_profile_with_no_client(self):
-        user = User.objects.get(pk=3)
+        user = User.objects.get(pk=4)
         self.client.force_login(user)
         response = self.client.get(reverse('trainer:user_profile', kwargs={'user_pk': user.pk}), follow=True)
         self.assertEqual(response.status_code, 200)

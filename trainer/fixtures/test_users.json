@@ -4,7 +4,8 @@
         "first_name" : "alice",
         "last_name" : "last",
         "email" : "a@a.com",
-        "password" : "qwertyuiop"
+        "password" : "qwertyuiop",
+        "is_trainer": "True"
       }
     },
 
@@ -22,6 +23,14 @@
         "first_name" : "me",
         "last_name" : "mine",
         "email" : "email@mine.com",
+        "password" : "qwertyuiop"
+      }
+    },
+  {"model" : "trainer.customuser", "pk" : 4 , "fields" :
+      { "username" : "ism123",
+        "first_name" : "ismael",
+        "last_name" : "mohamed",
+        "email" : "qaalib1598@gmail.com",
         "password" : "qwertyuiop"
       }
     }

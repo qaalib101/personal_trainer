@@ -1,5 +1,5 @@
 from django import forms
-from .models import Regimen, Client, CustomUser as User
+from .models import Progress, Client, CustomUser as User
 
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ValidationError
@@ -70,7 +70,7 @@ class NewClientForm(forms.ModelForm):
 
     class Meta:
         model = Client
-        fields = ('birthday', 'photo', 'bmi')
+        fields = ('birthday', 'photo', 'weight')
 
     def clean_birthday(self):
         birthday = self.cleaned_data['birthday']
@@ -78,18 +78,18 @@ class NewClientForm(forms.ModelForm):
             raise ValidationError('Please enter a birthday')
         return birthday
 
-    def clean_bmi(self):
-        bmi = self.cleaned_data['bmi']
-        if not bmi:
+    def clean_weight(self):
+        weight = self.cleaned_data['weight']
+        if not weight:
             raise ValidationError('Please enter a bmi')
-        return bmi
+        return weight
 
 
     def save(self, commit=True):
         client = super(NewClientForm, self).save(commit=False)
         client.birthday = self.cleaned_data['birthday']
         client.photo = self.cleaned_data['photo']
-        client.bmi = self.cleaned_data['bmi']
+        client.weight = self.cleaned_data['weight']
 
         if commit:
             client.save()
@@ -97,8 +97,8 @@ class NewClientForm(forms.ModelForm):
         return client
 
 
-class NewRegimenForm(forms.ModelForm):
+class NewProgressForm(forms.ModelForm):
 
     class Meta:
-        model = Regimen
-        fields = ('type',)
+        model = Progress
+        fields = ('weight',)

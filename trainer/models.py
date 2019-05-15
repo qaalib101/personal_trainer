@@ -11,26 +11,21 @@ class Notification(models.Model):
     link = models.CharField(max_length=300, blank=True, null=True)
 
 
-class Regimen(models.Model):
-    Choice = (
-        (1, 'Zeus'),
-        (2, 'Apollo'),
-        (3, 'Prometheus')
-    )
+class Progress(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    type = models.IntegerField(choices=Choice)
-    time = models.IntegerField(default=35)
-    progress = models.DecimalField(default=0.0, max_digits=3, decimal_places=2)
-
-    def add_progress(self):
-        self.progress += 0.2
+    date = models.DateField()
+    weight = models.DecimalField(max_digits=4, decimal_places=1)
 
 
 class Client(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     birthday = models.DateField()
     photo = models.ImageField(upload_to='user_images/', blank=True, null=True)
-    bmi = models.DecimalField(decimal_places=1, max_digits=3)
+    weight = models.DecimalField(decimal_places=1, max_digits=4)
+
+    def change_weight(self, weight):
+        self.weight = weight
+        self.save()
 
 
 class MyUserManager(BaseUserManager):

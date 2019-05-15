@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import psycopg2
+import dj_database_url
 
+from decouple import config
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -64,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -76,16 +79,17 @@ WSGI_APPLICATION = 'personal_trainer.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'default': '''{
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'trainer',
         'USER': 'qaalib',
         'PASSWORD': os.environ.get('LMNOP_DB_PW'),
         'HOST': 'localhost',
         'PORT': '5432'
-    }
+    }'''
 }
-
+db_from_env = dj_database_url.config(default=config('DATABASE_URL'), conn_max_age=600, ssl_require=True)
+DATABASES['default'] = db_from_env
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -135,7 +139,7 @@ LOGOUT_REDIRECT_URL = 'trainer:homepage'
 
 AUTH_USER_MODEL = 'trainer.CustomUser'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR)
 MEDIA_URL = '/media/'
 
 COMPRESS_OFFLINE = os.environ.get('COMPRESS_OFFLINE', True)

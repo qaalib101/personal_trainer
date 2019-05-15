@@ -1,33 +1,84 @@
 {% extends 'trainer/base.html' %}
 {% block content %}
+    {% load static %}
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
         <li><a data-toggle="tab" href="#regimen">Regimen</a></li>
+        <li><a data-toggle="tab" href="#progress">Progress</a></li>
     </ul>
     <div class="well well-lg">
         <div class="tab-content">
             <div id="home" class="tab-pane fade in active">
             <h1>{{ client.user.username }}'s profile page</h1>
         {% if client.photo %}
-            <img src="{{ client.photo }}">
+            <img class="img-circle" src="{{ MEDIA_URL }}{{ client.photo.url }}" style="width:100px;height:100px;">
         {% else %}
             <p>No image</p>
         {% endif %}
         <p>Member since: {{ client.user.date_joined }}</p>
         </div>
             <div id="regimen" class="tab-pane fade">
-    {% if regimen %}
-        <h1>{{ regimen.type }} Regimen</h1>
-        <p>Time left: {{ regimen.time }}</p>
-        <p>Progress: {% widthratio regimen.progress 1 100 %}</p>
-        <a href="{% url 'trainer:edit_regimen' %}" role="button" class="btn btn-default">Edit the regimen</a>
-    {% else %}
-        <h2>You have no regimen add one!</h2>
-        <a href="{% url 'trainer:edit_regimen' %}" role="button" class="btn btn-default">Add a regimen</a>
+    {% if request.user == client.user or request.user.is_trainer %}
+        <h2>Regimen</h2>
+        <P>Plan: <a href="https://thrivestrive.com/fat-burning-exercises/">Fat Burning Workout</a></P>
+        <p>Weight: {{ client.weight }}</p>
+        <P>Submit the progress you made this week</P>
+        <form id="progress_form" action="{% url 'trainer:submit_progress' %}" method="POST">
+            {% csrf_token %}
+            {{ form.as_table }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
     {% endif %}
-  </div>
+            </div>
+            <div id="progress" class="tab-pane fade">
+                <h2>Your progress so far</h2>
+                <p id="progress_graph"></p>
+            </div>
         </div>
     </div>
 
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', {'packages':['corechart']});
+      function getProgress(){
+         $.get('/client/progress/get/{{ client.user.id }}', function (data, status) {
+             drawChart(data);
+          });
+      }
+      $("a[href='#progress']").on('shown.bs.tab', function (e) {
+          getProgress();
+      });
+      function drawChart(rawProgress) {
+          let progress = JSON.parse(rawProgress);
+          var data = new google.visualization.DataTable();
+          data.addColumn('date', 'Date');
+          data.addColumn('number', 'Weight(lb)');
+          if(progress.length != 0 && progress.length != 1){
+              for(var i=0; i<progress.length; i++){
+              let date =  new Date(progress[i].date * 1000);
+              let weight = parseFloat(String(progress[i].weight));
+              data.addRows([[date, {v:weight, f: weight.toFixed(1)}]]);
+          }
+        var options = {
+          title: 'Your Progress',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
 
+        var chart = new google.visualization.LineChart(document.getElementById('progress_graph'));
+
+        chart.draw(data, options);
+          }
+          else{
+              var message = document.getElementById("progress_graph");
+              var textNode = document.createTextNode("No progress submitted yet.");
+              if (message.childNodes.length != 0){
+                  y = message.childNodes[0];
+                  message.removeChild(y);
+              }
+              message.appendChild(textNode);
+          }
+      }
+    </script>
 {% endblock %}
