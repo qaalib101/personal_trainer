@@ -14,3 +14,5 @@ user: qaalib
 Setup password for the user and set the LMNOP_DB_PW environment variable as the password to run it locally.
 Code can be used with database hosted on data.heroku.com.
 Recommended to use the local database.
+
+# Screenshots
