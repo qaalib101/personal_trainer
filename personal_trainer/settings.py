@@ -28,7 +28,7 @@ SECRET_KEY = '%kk48-be6li46k6bkpleppy0ri!9zujq9!w18jgtwn8+^b%2%g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['capstonefinal.herokuapp.com', '127.0.0.1:8000']
+ALLOWED_HOSTS = ['capstonefinal.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -74,6 +74,9 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'trainer/templates'),
+)
 WSGI_APPLICATION = 'personal_trainer.wsgi.application'
 
 
@@ -142,7 +145,7 @@ LOGOUT_REDIRECT_URL = 'trainer:homepage'
 
 AUTH_USER_MODEL = 'trainer.CustomUser'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'trainer\media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/trainer/media/'
 
 

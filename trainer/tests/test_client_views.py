@@ -64,7 +64,7 @@ class TestSetupClient(TestCase):
         self.client.force_login(user)
         response = self.client.get(reverse('trainer:user_profile', kwargs={'user_pk': user.pk}), follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'users/setup_client.html')
+        self.assertTemplateUsed(response, 'trainer/users/setup_client.html')
         self.assertContains(response, 'Set up client')
 
     def test_set_up_client(self):
