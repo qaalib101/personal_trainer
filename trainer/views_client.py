@@ -1,15 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
-from django.conf import settings
-from .forms import UserRegistrationForm, NewClientForm, NewProgressForm
-from .models import Progress, Client, CustomUser as User, Notification
+from .forms import NewClientForm, NewProgressForm
+from trainer.models import Progress, Client, Notification, CustomUser as User
 from datetime import datetime, timezone, date
-from django.forms.models import model_to_dict
-from django.http import Http404, HttpResponse
-from json import dumps, loads
-
-
+from django.http import HttpResponse
+from json import dumps
 
 
 @login_required

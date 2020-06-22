@@ -1,13 +1,8 @@
-from django.shortcuts import render, redirect, reverse
-from django.test import TestCase, Client
-from django.contrib.auth import authenticate, login, logout
-from django.conf import settings
-from trainer.forms import UserRegistrationForm
-from trainer.models import Notification, Progress, Client, CustomUser as User
+from django.shortcuts import reverse
+from django.test import TestCase
+from trainer.submodels.train_models import Progress, CustomUser as User
 import json
 import decimal
-from datetime import datetime
-from django.http import Http404
 
 
 class TestProgressViews(TestCase):

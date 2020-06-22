@@ -3,9 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.conf import settings
 from .forms import UserRegistrationForm, NewProgressForm
-from .models import Progress, Client, CustomUser as User, Notification
+from trainer.models import Progress, Client, Notification, CustomUser as User
 from datetime import datetime, timezone
-from .views_client import save_notification
+
 
 # Create your views here.
 

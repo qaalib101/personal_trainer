@@ -1,11 +1,7 @@
-from django.shortcuts import render, redirect, reverse
-from django.test import TestCase, Client
-from django.contrib.auth import authenticate, login, logout
-from django.conf import settings
-from trainer.forms import UserRegistrationForm
-from trainer.models import Notification, Progress, Client, CustomUser as User
+from django.shortcuts import reverse
+from django.test import TestCase
+from trainer.submodels.train_models import Notification, CustomUser as User
 from trainer.views_client import save_notification
-from django.http import Http404
 from datetime import datetime
 
 

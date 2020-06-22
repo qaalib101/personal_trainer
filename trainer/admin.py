@@ -1,7 +1,14 @@
 from django.contrib import admin
-from .models import Progress, Client
+from django.apps import apps
+from trainer.models import *
+from django.contrib.auth.admin import UserAdmin
+# all other submodels
+models = apps.get_models()
 
-# Register your models here.
+admin.site.register(CustomUser, UserAdmin)
 
-admin.site.register(Progress)
-admin.site.register(Client)
+for model in models:
+    try:
+        admin.site.register(model)
+    except admin.sites.AlreadyRegistered:
+        pass

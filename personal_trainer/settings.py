@@ -84,18 +84,18 @@ WSGI_APPLICATION = 'personal_trainer.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default':'''{
+    'default':{
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'trainer',
         'USER': 'qaalib',
-        'PASSWORD': os.environ.get('LMNOP_DB_PW'),
+        'PASSWORD': os.environ.get('TRAINER_DB_PW'),
         'HOST': 'localhost',
         'PORT': '5432'
-    }'''
+    }
 }
 # database configuration for data.heroku.com, comment out these lines and comment in the local database
-db_from_env = dj_database_url.config(default=config('DATABASE_URL'), conn_max_age=600, ssl_require=True)
-DATABASES['default'] = db_from_env
+# db_from_env = dj_database_url.config(default=config('DATABASE_URL'), conn_max_age=600, ssl_require=True)
+# DATABASES['default'] = db_from_env
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

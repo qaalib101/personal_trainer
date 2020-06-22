@@ -1,6 +1,5 @@
 from django import forms
-from .models import Progress, Client, CustomUser as User
-
+from trainer.models import Progress, Client, CustomUser as User
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ValidationError
 

@@ -1,11 +1,7 @@
-from django.shortcuts import render, redirect, reverse
-from django.test import TestCase, Client
-from django.contrib.auth import authenticate, login, logout
-from django.conf import settings
-from trainer.forms import UserRegistrationForm
-from trainer.models import Progress, Client, CustomUser as User
+from django.shortcuts import reverse
+from django.test import TestCase
+from trainer.submodels.train_models import CustomUser as User
 from PIL import Image
-import os
 
 
 class TestClientViews(TestCase):
