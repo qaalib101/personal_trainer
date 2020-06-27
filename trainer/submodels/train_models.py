@@ -45,15 +45,22 @@ class Exercise(models.Model):
         default='1'
     )
 
+    def __str__(self):
+        return self.name
+
 
 class MuscleGroup(models.Model):
     name = models.CharField(max_length=128)
-    commanName = models.CharField(max_length=128)
+    commenName = models.CharField(max_length=128)
     location = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.name
 
 
 class Activation(models.Model):
-    score = models.IntegerField()
-    level = models.IntegerField()
     muscle = models.ForeignKey(MuscleGroup, on_delete=models.CASCADE)
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return ('Activation of ' + str(self.muscle) + ' by ' + str(self.exercise))
